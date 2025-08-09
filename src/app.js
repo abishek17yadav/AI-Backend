@@ -1,27 +1,31 @@
-const express =require('express');
+const express = require('express');
 const cors = require('cors');
-const aiRoutes= require('./routes/ai.routes')
-
-const authRoutes = require('./routes/auth'); 
-
+const aiRoutes = require('./routes/ai.routes');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 
-// app.use(cors())
-app.use(cors({
-  origin: 'https://ai-frontend-ivory-nine.vercel.app', 
-  credentials: true
-}));
-app.use(express.json())
-app.use(express.urlencoded({extended:true}));
+const corsOptions = {
+  origin: 'https://ai-frontend-ivory-nine.vercel.app',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
 
+// Enable CORS with these options
+app.use(cors(corsOptions));
 
-app.get('/', (req ,res)=>{
-    res.send("hello world");
-})
+// Handle preflight OPTIONS requests explicitly
+app.options('*', cors(corsOptions));
 
-app.use('/ai' , aiRoutes);
-app.use('/api/auth', authRoutes); 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+app.get('/', (req, res) => {
+  res.send('hello world');
+});
 
-module.exports=app;
+app.use('/ai', aiRoutes);
+app.use('/api/auth', authRoutes);
+
+module.exports = app;
