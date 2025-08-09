@@ -2,14 +2,14 @@ const express =require('express');
 const cors = require('cors');
 const aiRoutes= require('./routes/ai.routes')
 
-const authRoutes = require('./routes/auth'); // ✅ Add this line
+const authRoutes = require('./routes/auth'); 
 
 
 const app = express();
 
 // app.use(cors())
 app.use(cors({
-  origin: 'http://localhost:5173', // or your frontend port
+  origin: 'http://localhost:5173', 
   credentials: true
 }));
 app.use(express.json())
@@ -21,7 +21,7 @@ app.get('/', (req ,res)=>{
 })
 
 app.use('/ai' , aiRoutes);
-app.use('/api/auth', authRoutes); // ✅ Add this line
+app.use('/api/auth', authRoutes); 
 
 
 module.exports=app;
