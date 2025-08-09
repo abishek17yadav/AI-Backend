@@ -12,11 +12,11 @@ const corsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
-// Enable CORS with these options
-app.use(cors(corsOptions));
-
-// Handle preflight OPTIONS requests explicitly
+// Handle preflight requests
 app.options('*', cors(corsOptions));
+
+// Use CORS for all routes
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
